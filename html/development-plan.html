@@ -1,9 +1,22 @@
 <main>
+
+<h2>Rough sketch of the overall development plan.</h2>
+
+<h3>Website</h3>
+
+<p>Move the examples to independent files that are magically added to the files</p>
+
+<h3>Compilers</h3>
+
 <p>Fork dmd+druntime, fork phobos. Keep them as separate repos for dev prolly</p>
 
-<p>Fork ldc?</p>
+<p>Fork ldc? Want to copy its CI setup for deployment.</p>
 
 <p>A monorepo of compiler, website, libraries, would be ideal. But might make pulling stuff from Walter's dmd more difficult.</p>
+
+<p>In any case, get language documentation into the compiler repo somehow, so one PR can update the docs and compiler at the same time.</p>
+
+<h3>Helper programs</h3>
 
 <p>Deployment: take the separate builds and combine them into one package. Add the opend accessible productivity portal.</p>
 
@@ -14,8 +27,6 @@
 <p>opend-xx commands: install, build, run, test, etc; your package manager and build tool.</p>
 
 <p>`opend-xx please update opend`</p>
-
-<big>Change the automatic module name procedure in dmd to change - to _</big>
 
 <hr />
 
