@@ -1,0 +1,47 @@
+body {
+	font-family: sans-serif;
+}
+
+#body-container {
+	max-width: 980px;
+	margin: 0px auto;
+}
+
+h1 {
+	text-align: center;
+}
+
+#get-started-link {
+	float: right;
+	margin: 1em;
+	background-color: #880000;
+	font-weight: bold;
+	color: white;
+	text-transform: uppercase;
+	padding: 1em;
+	display: inline-block;
+}
+
+summary {
+	cursor: pointer;
+}
+
+.gimmick-slider + div {
+	position: relative;
+	width: 100%;
+	height: 14em;
+}
+
+.gimmick-slider + div > * {
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	bottom: 0px;
+	right: 0px;
+	overflow: auto;
+	transition: opacity 200ms;
+	opacity: 1;
+
+	tab-size: 2;
+}
+

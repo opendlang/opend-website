@@ -1,0 +1,23 @@
+<main>
+<p>Fork dmd+druntime, fork phobos. Keep them as separate repos for dev prolly</p>
+
+<p>Fork ldc?</p>
+
+<p>A monorepo of compiler, website, libraries, would be ideal. But might make pulling stuff from Walter's dmd more difficult.</p>
+
+<p>Deployment: take the separate builds and combine them into one package. Add the opend accessible productivity portal.</p>
+
+<p>opend command: updates opend-xx command and forwards commands to the latest opend-xx. This is <i>all</i> it does; the original opend.exe should never need modification.</p>
+
+<p>`opend please prune opend` can delete old versions of opend-xx for you.</p>
+
+<p>opend-xx commands: install, build, run, test, etc; your package manager and build tool.</p>
+
+<p>`opend-xx please update opend`</p>
+
+<big>Change the automatic module name procedure in dmd to change - to _</big>
+
+<hr />
+
+A directory "precompiled/" can be first on the search list and hold the modules exempt from the -i directive (if their build spat out a different .d than their original input) with a file that lists the command modifications required to use it (-i=-things and -lthings). This is NOT to hold build settings as it is just a local cache!
+</main>

@@ -1,0 +1,19 @@
+<main>
+	<p>Using OpenD is supposed to be easy - the opend accessible productivity portal can provide everything you need to do work. But hacking on opend might be a little more involved. This document should help you get started.</p>
+
+	<p>Maybe someday a <code>opend please setup-developer</code> command would be a good idea.</p>
+
+	<ol>
+		<li>Download git, make, etc., if you don't already have it</li>
+		<li>Clone the repo you want to work on. Probably `dmd` to work on the language itself.</li>
+		<li>If you've already done those steps, `git checkout master` then `git pull upstream master` to get caught up.</li>
+		<li>`git branch -b some_name_you_make_up`</li>
+		<li>Edit the things you want to edit</li>
+		<li>Recompile with the makefiles</li>
+		<li>Use `opend please vdev build ....` to build your test programs to experiment with it<li>
+		<li>`git commit` to save your code. The commit message ought to explain what the change is about and why.</li>
+		<li>`git push` to start the pull request process</li>
+	</ol>
+
+	<p>When you open a pull request, be prepared to talk about what it does, why it does it, and how to use it. You might want to talk to us all about an idea before implementing it, but also sometimes an implementation is the quickest and easiest way to show something. Use your own judgement as to how much time you want to sink in, but if something isn't going to be pretty quick to code, you probably should talk about it first to make sure you aren't going to waste your time.</p>
+</main>

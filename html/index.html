@@ -1,0 +1,140 @@
+<main>
+<a id="get-started-link" href="start.html">Get Started Now</a>
+
+<h2>The&nbsp;programming&nbsp;language that...</h2>
+
+<h3>Boosts your productivity out-of-the-box.</h3>
+
+<p>With hundreds of library modules included, opening a window and starting a web server are just as easy as printing hello to the console.</p>
+
+<details>
+	<summary>Graphics window</summary>
+
+	<pre><code>
+	import arsd.simpledisplay;
+
+	void main() {
+		auto window = new SimpleWindow("Hello!");
+
+		window.eventLoop(0);
+	}
+	</code></pre>
+</details>
+
+<details>
+	<summary>Web server</summary>
+
+	<pre><code>
+	import arsd.cgi;
+
+	void handler(Cgi cgi) {
+
+	}
+
+	mixin GenericMain!handler;
+	</code></pre>
+</details>
+
+<p><a href="/">Search library documentation here</a> or <a href="">browse the index of included modules here</a>.</p>
+
+<p>Have questions? <a href="contact.html">We're happy to help</a>.</p>
+
+<h3>Meets you where you are and joins you where you're going.</h3>
+
+<p>From high-level, mathematics-inspired code to low-level, machine-gripping code, and everything in between, all in the same language. Open D is an all-purpose programming language built on familiar concepts and syntax.</p>
+
+<p>Move the slider from one side to the other to see some examples, and remember, you can mix and match these styles in the same program, even the same file!</p>
+
+<input class="gimmick-slider" style="width: 100%;" type="range" min="1" max="6" oninput="
+	var v = this.value;
+	Array.from(this.nextElementSibling.children).forEach(function(c, i) {
+		c.style.opacity = ((i+1) == v) ? '1' : '0';
+		c.style.pointerEvents = ((i+1) == v) ? '' : 'none';
+	});
+" />
+<div>
+<pre><code>// inline asm supported
+void _start() {
+	asm {
+		naked; // full control over the function's stack frame
+		mov RAX, 3;
+		mov ECX, 11;
+		syscall;
+	}
+}
+</code></pre>
+<pre><code>// C-style pointers supported
+void main() {
+	ubyte* vgaText = cast(ubyte*) 0xB8000;
+	vgaText[0] = 'B';
+}
+</code></pre>
+<pre><code>// Convenient, garbage-collected strings and arrays
+void main() {
+	string text = "Hello, ";
+	text ~= "world!"; // append operator
+}
+</code></pre>
+<pre><code>// pipeline style range programming supported
+import std;
+void main() {
+	[1, 2, 3]
+		.map!(x => x ^^ 2)
+		.filter!(x => x % 2 == 0)
+		.writeln;
+}
+</code></pre>
+<pre><code>// annotation-based declarative programming
+import arsd.minigui;
+class Commands {
+	@menu("File")
+	void Open() {}
+}
+void main() {
+	auto window = new MainWindow();
+	window.addMenuAndToolbarFromAnnotatedCode(new Commands());
+	window.loop();
+}
+</code></pre>
+<pre><code>// dynamic, Javascript-type code
+import arsd.jsvar;
+void main() {
+	var a = 5;
+	a = "foo";
+	a = var.emptyObject;
+	a["bar"] = 9;
+	assert(a.bar == 9);
+}
+</code></pre>
+</div>
+<script>
+	window.addEventListener("DOMContentLoaded", function() {
+		Array.from(document.querySelectorAll(".gimmick-slider + div > *"))
+			.forEach(function(c, i) {
+				var v = c.parentNode.previousElementSibling.value;
+				c.style.opacity = ((i+1) == v) ? '1' : '0';
+				c.style.pointerEvents = ((i+1) == v) ? '' : 'none';
+			});
+	});
+</script>
+
+<p><a href="">See language documentation here</a>.</p>
+
+<h3>Welcomes YOUR contribution!</h3>
+
+<p>Programming languages are just the core of thriving ecosystems and best when people work together. Productivity boosters are often library code rather than language features, but language features can be the difference between a good library and a <i>great</i> library.</p>
+
+<p>That's why Open D is open - to soar to greatness, we need your help! Have an idea? <a href="contact.html">Let's talk about it</a>. Have some code you want to contribute? <a href="">Let's work together to get it in</a>.</p>
+
+<p>Of course, we do have to be careful not to break other people's work, so not everything can be accepted, but we'll do what we can to help each other improve the programming experience for everybody.</p>
+
+<p><a href="development-plan.html">See the development plan here</a>.</p>
+
+<p>Open D is a fork of <a href="//dlang.org/">Walter Bright's D Programming Language</a>. If you already know Walter's D, you can see the <a href="changes.html">list of changes here</a> and <a href="roadmap.html">planned future directions here</a>.</p>
+
+<h2>Ready to try it?</h2>
+
+<a href="start.html">Get started now!</a>
+
+
+</main>
