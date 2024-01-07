@@ -4,34 +4,47 @@
 <h2>Guaranteed</h2>
 
 <ul>
-	<li>Merge interpolated expressions</li>
+	<li>Merge interpolated expressions (done jan 2, 2024)</li>
 	<li>Change the automatic module name procedure in dmd to change - to _</li>
 	<li>Remove -preview=bitfields</li>
 	<li>Correct -release</li>
 	<li>Make a way to detect the fork</li>
 	<li>__traits(docComment)</li>
+	<li>increase the size of the default fiber stack</li>
 </ul>
 
 <h2>Probably, if easy</h2>
 
 <ul>
+	<li>Bring 0o777 octal literals back (done jan 4, 2024)</li>
 	<li>Fix the closure bug in foreach loops</li>
 	<li>tg's tuple work</li>
-	<li>Merge Jonathan Marler's wrongfully rejected bug fixes re module system</li>
-	<li>Merge mixinC</li>
-	<li>Bring 0o777 octal literals back</li>
+	<li>Class-level private (in addition to the current module-level private)</li>
+	<li>Merge Jonathan Marler's wrongfully rejected bug fixes re module system ref: https://github.com/dlang/dmd/pull/7878 and https://github.com/dlang/dmd/pull/7778</li>
+	<li>Merge mixinC ref https://github.com/dlang/dmd/pull/14114</li>
 	<li>Switch to safe by default</li>
-	<li>Bring in some kind of assert(__ctfe) detection</li>
+	<li>Bring in some kind of assert(__ctfe) detection ref: https://github.com/dlang/dmd/pull/11007/</li>
 	<li>Allow inferring of other attributes as well as turning them back off, assuming i don't just kill them as useless bloat no-ops. Probably add opposite things (throw, impure, etc) as well as `@!thing` which just removes thing, if present, from the list. Works for compiler attributes as well as user defined attributes (and btw maybe there should be no compiler attributes and they all just recognized UDAs)</li>
 	<li>Fix phobos lol prolly not ez</li>
 	<li>Fix pragma(linkerDirective) on mac</li>
 	<li>Fix error messages gagging things and just giving void as the type in delegates and such</li>
+
+	<li>const(Object) o ref for rebindable const object https://github.com/dlang/dmd/pull/3</li>
+	<li>Fix package.d</li>
+	<li>Ban user-redefined init</li>
+	<li>Implicit construction (at least on return values)</li>
+	<li>Eliminate Object.factory</li>
 </ul>
 
 <h2>Undecided, but maybe</h2>
 
 <ul>
-	<li>Revisit the enum-name-inference thing for all symbols in the namespace.</li>
+	<li>Return the thing if it is not a certain type or use it if it is, like rust error handling</li>
+	<li>Implicit cast</li>
+	<li>Template reflection</li>
+	<li>Make Error call stack unwinders again</li>
+	<li>Revisit bool/int and char/int conversions</li>
+	<li>Revisit the enum-name-inference thing for all symbols in the namespace. Ref: https://github.com/dlang/dmd/pull/14650</li>
 	<li>Change the distribution system so you have a compiler driver and it can install support packs for different things.
 		<ul>
 			<li>"Optimizer support pack" = ldc w/ ldmd2 (when you pass -O, it forwards the flags to that).</li>
@@ -41,9 +54,12 @@
 			<li>Etc.</li>
 		</ul>
 	</li>
+	<li>Fix extern(Objective-C) in ldc</li>
 	<li>Change built-in unittest to be a bit better</li>
 	<li>Kill `version`</li>
 	<li>Fix properties. This has been historically hard to implement though</li>
+	<li>tg's __mutable</li>
+	<li>https://github.com/dlang/phobos/pull/8806 json5 by robert schadek</li>
 </ul>
 
 <h2>Nope</h2>

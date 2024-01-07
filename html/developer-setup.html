@@ -10,10 +10,14 @@
 		<li>`git branch -b some_name_you_make_up`</li>
 		<li>Edit the things you want to edit</li>
 		<li>Recompile with the makefiles</li>
-		<li>Use `opend please vdev build ....` to build your test programs to experiment with it<li>
+		<li>Use `opend please vdev build ....` to build your test programs to experiment with it</li>
 		<li>`git commit` to save your code. The commit message ought to explain what the change is about and why.</li>
 		<li>`git push` to start the pull request process</li>
 	</ol>
 
 	<p>When you open a pull request, be prepared to talk about what it does, why it does it, and how to use it. You might want to talk to us all about an idea before implementing it, but also sometimes an implementation is the quickest and easiest way to show something. Use your own judgement as to how much time you want to sink in, but if something isn't going to be pretty quick to code, you probably should talk about it first to make sure you aren't going to waste your time.</p>
+
+	<h2>Notes</h2>
+
+	<p>Language and runtime development work should be done on the `opend-dmd` repo. opend-ldc pulls changes from them. Pulling changes into dmd is done with a `update-dmd-rewrite.sh` script. This requires a separate `git-filter-repo` script from https://raw.githubusercontent.com/newren/git-filter-repo/main/git-filter-repo</p>
 </main>

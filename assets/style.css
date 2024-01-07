@@ -94,3 +94,77 @@ summary {
 	tab-size: 2;
 }
 
+
+
+
+
+
+body {
+  accent-color: #a5f;
+}
+
+body > h1:nth-child(1) > a:nth-child(1) > span:nth-child(1) {
+  color: #a5f !important;
+}
+
+#nav-container > nav {
+  gap: 8px;
+  align-items: center;
+  height: 40px;
+  padding: 0;
+}
+
+#nav-container > nav > a {
+    display: inline-block;
+    padding: 0 16px;
+    color: inherit;
+    text-decoration: inherit;
+    height: 40px;
+    display: block;
+    line-height: 40px;
+  border-radius: 8px;
+  transition: background-color 0.2s ease-out;
+}
+
+#nav-container > nav > a:hover,
+#nav-container > nav > a:active {
+  background-color: #0002;
+}
+
+@media screen and (max-width: 700px) {
+  #nav-container > nav > a {
+    padding: 0 8px;
+  }
+}
+
+#nav-container > nav > a > img {
+  width: 24px;
+  height: 24px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+#nav-container {
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+#body-container {
+  border-radius: 32px 0px;
+  padding: 32px;
+  padding-top: 8px;
+  box-shadow: 0px 8px 16px #bac, 0px 32px 64px #bac8;
+}
+
+#get-started-link {
+  background-color: #6800d0;
+  text-decoration: none;
+  border-radius: 16px 0px;
+  padding: 1em 2em;
+  text-align: center;
+  transition: background-color 0.1s ease-out;
+}
+
+#get-started-link:hover {
+  background-color: #82f;
+}
