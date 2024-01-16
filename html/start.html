@@ -2,17 +2,94 @@
 
 <p>We still need to set this up! The OpenD language was just created on January 1, 2024.</p>
 
+<p>There are two compilers built from the OpenD source: the quick compiler, based on Digital Mars' dmd code, and the optimizing cross-capable compiler, based on LDC's llvm code.</p>
+
+<p>The dmd-based quick compiler is usually easier and faster to compile.</p>
+
 <h2>Building the compiler</h2>
 
+<p>The compiler code itself is compatible with upstream D, so you can bootstrap it using those compilers.</p>
+
+<h3>Windows</h3>
+
+<h4>dmd-based compiler</h4>
+
+<p>On Windows, you will want <a href="https://gnuwin32.sourceforge.net/packages/make.htm">GNU make</a> (make sure you get the two dlls it depends on too, from the same website) and an upstream D compiler to get started. Run make from inside the "x64 Native Tools Command Prompt" that VS install sets up. You might want to copy the make exe and dlls into the dmd bin folder.</p>
 <pre>
-mkdir opend
-cd opend
 git clone https://github.com/opendlang/opend.git
-git clone https://github.com/opendlang/opend-phobos.git phobos
-cd dmd
-make -j8
+cd opend
+cd compiler\src
+dmd build
+build
+cd ../../druntime
+make
+cd ../phobos
+make
+</pre>
+
+<p>You can then use opend\generated\windows\release\64\dmd.exe, God willing.</p>
+
+<h4>ldc-based compiler</h4>
+
+<p>You'll need cmake (from cmake.org) and llvm (at least version 11.0, no newer than 17.0.1, from releases.llvm.org/download.html) installed.</p>
+
+<p>LLVM's website doesn't offer a complete download for Windows. So this won't work</p>
+
+<p>https://github.com/c3lang/win-llvm/releases/tag/llvm_16_0_2 offers a download that works though...</p>
+
+<p>mkdir build; cd build; cmake .. -DLLVM_ROOT_DIR="c:\Users\adamd\Downloads\llvm-16.0.2-windows-x86-msvc17-msvcrt\"</p>
+
+<p>Open the .sln file in Visual Studio and click the build option in the right click menu of the ALL_BUILD project. hope it works... it didn't for me though</p>
+
+alternatively maybe:
+
+<ol>
+	<li>Download cmake and put it in your path. Its installer can do this for you.</li>
+	<li>Download llvm binary build. The thing from the official llvm website does NOT work but there are others out there. Put the path to llvm bin in your PATH.</li>
+	<!-- Their website links to github, then you probably want LLVM-16.0.4-win64.exe which you can run to install it. Windows Defender might complain about it but it worked for me. Put it in your path; the installer can do this for you again. -->
+	<li>Open a x64 Native Tools Command Prompt from your VS install</li>
+	<li><code>cd \path\to\opend</code></li>
+	<li><code>cd ldc</code></li>
+	<li><code>mkdir build</code></li>
+	<li><code>cd build</code></li>
+	<li>...hit a wall because the cmake thing looks for llvm-config which is not included in the download. ugh. Need to adjust again.</li>
+</ol>
+
+<h3>Linux</h3>
+
+<h4>Initial setup</h4>
+
+<pre>
+git clone https://github.com/opendlang/opend.git
+</pre>
+
+<h4>dmd-based compiler</h4>
+
+<pre>
+# cd into your clone...
+cd opend
+cd compiler
+make -j8 dmd
+make -j8 druntime
 ./generated/linux/release/64/dmd --version
 </pre>
+
+<h4>ldc-based compiler</h4>
+
+<pre>
+# cd into your clone...
+cd opend
+cd ldc
+mkdir build
+cd build
+cmake ..
+make -j8
+./bin/ldc2 --version
+</pre>
+
+
+
+<h2>Please help!</h2>
 
 <p>If you know how to adapt CI scripts to do release downloads, please <a href="contact.html">get in touch</a>.</p>
 

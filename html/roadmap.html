@@ -1,46 +1,56 @@
 <main>
-<h1>Stuff i might do in my D fork</h1>
+<h1>Directional Aims and Items of Consideration</h1>
+
+<p>This is a rough list of things we'd like to look at. Anybody can add an idea to the list (PR the website!) and each one might be reviewed and rejected by the community, but these are the specific items of consideration.</p>
 
 <h2>Guaranteed</h2>
 
+<p>These changes are obvious wins, no breakage, easy implementation, just need to make the change.</p>
+
 <ul>
-	<li>Merge interpolated expressions (done jan 2, 2024)</li>
 	<li>Change the automatic module name procedure in dmd to change - to _</li>
-	<li>Remove -preview=bitfields</li>
-	<li>Correct -release</li>
-	<li>Make a way to detect the fork</li>
+	<li>Remove -preview=bitfields. That is a problematic C feature implemented just for C interop, but we can keep it for importC without cementing the same poor design to D proper.</li>
+	<li>Correct -release so it is no longer considered harmful</li>
 	<li>__traits(docComment)</li>
 	<li>increase the size of the default fiber stack</li>
+	<li>Massively expand the bundled library offerings</li>
 </ul>
 
 <h2>Probably, if easy</h2>
 
+<p>These changes would be nice to have. Some specifics might need to be worked out, the implementation might be difficult, it might cause breakage... all those things might remove them from the list. But, they deserve investigation and experimentation. If these items work out with minimal trouble (including managing potential breakage), we'd like to see them. If not, they might be dropped.</p>
+
 <ul>
-	<li>Bring 0o777 octal literals back (done jan 4, 2024)</li>
+	<li>Make druntime easier to port to things like webassembly and niche platforms</li>
+	<li>Anonymous structs in more contexts</li>
 	<li>Fix the closure bug in foreach loops</li>
 	<li>tg's tuple work</li>
 	<li>Class-level private (in addition to the current module-level private)</li>
-	<li>Merge Jonathan Marler's wrongfully rejected bug fixes re module system ref: https://github.com/dlang/dmd/pull/7878 and https://github.com/dlang/dmd/pull/7778</li>
 	<li>Merge mixinC ref https://github.com/dlang/dmd/pull/14114</li>
-	<li>Switch to safe by default</li>
 	<li>Bring in some kind of assert(__ctfe) detection ref: https://github.com/dlang/dmd/pull/11007/</li>
 	<li>Allow inferring of other attributes as well as turning them back off, assuming i don't just kill them as useless bloat no-ops. Probably add opposite things (throw, impure, etc) as well as `@!thing` which just removes thing, if present, from the list. Works for compiler attributes as well as user defined attributes (and btw maybe there should be no compiler attributes and they all just recognized UDAs)</li>
-	<li>Fix phobos lol prolly not ez</li>
-	<li>Fix pragma(linkerDirective) on mac</li>
+	<li>Fix phobos?</li>
+	<li>Fix pragma(linkerDirective) on mac. It should be able to bring in `-framework Cocoa` etc.</li>
 	<li>Fix error messages gagging things and just giving void as the type in delegates and such</li>
 
 	<li>const(Object) o ref for rebindable const object https://github.com/dlang/dmd/pull/3</li>
-	<li>Fix package.d</li>
+	<li>Fix package.d, removing the special cases based on filenames and maybe revisiting reflection over it.</li>
 	<li>Ban user-redefined init</li>
 	<li>Implicit construction (at least on return values)</li>
 	<li>Eliminate Object.factory</li>
+	<li>Forward attributes from delegates to outside of function for callbacks</li>
+	<li>Fix class dtor impl to be actually virtual <a href="https://github.com/orgs/opendlang/discussions/25">github discussion</a></li>
+	<li>Define reflection access to constructors (prolly just officially say "use __ctor")</li>
 </ul>
 
 <h2>Undecided, but maybe</h2>
 
+<p>These items would also be nice to look into, but the cost/benefit ratio looks lower at first look.</p>
+
 <ul>
 	<li>Return the thing if it is not a certain type or use it if it is, like rust error handling</li>
 	<li>Implicit cast</li>
+	<li>Switch to safe by default</li>
 	<li>Template reflection</li>
 	<li>Make Error call stack unwinders again</li>
 	<li>Revisit bool/int and char/int conversions</li>
@@ -64,8 +74,20 @@
 
 <h2>Nope</h2>
 
+<p>These things have proven to be problematic in the past and are not likely to happen.</p>
+
 <ul>
-	<li>Focus on betterC or nogc. I might or might not deliberately break them, but I certainly won't expend effort maintaining or promoting them.</li>
+	<li>Focus on betterC or nogc. This doesn't mean they'll break, but they are deprioritized; there's often better ways to achieve the use cases, and even when there isn't, we can't let the nogc case hurt the common case.</li>
+</ul>
+
+<h2>Already finished</h2>
+
+<ul>
+	<li>Merge interpolated expressions</li>
+	<li>Make a way to detect the fork: version(D_OpenD)</li>
+	<li>Add 0o777 octal literals</li>
+	<li>Merge the repos for a smoother dev experience (potentially makes pulling from upstream harder but makes ongoing work here much easier)</li>
+	<li>[breaking change] Merge Jonathan Marler's wrongfully rejected bug fixes re module system ref: https://github.com/dlang/dmd/pull/7878 and https://github.com/dlang/dmd/pull/7778 - to migrate, always make sure you use the same name for `import` as for `module` statements. The old behavior would lead to potentially loading the wrong library when there were two similar ones in the import path, this removes that ambiguity.</li>
 </ul>
 
 <h1>What could bring me back to upstream?</h1>
@@ -81,8 +103,8 @@
 <p>A few ideas:</p>
 
 <ul>
-	<li>Certain features could have different people in charge of it. Delegating responsibility would spread the work load and let domain specialists focus on their area of expertise without interference. This should be true for the language as well as for the library.</li>
-	<li>Overall language direction could be guided in a formal process by all stakeholders, not subject to arbitrary reversion or hold by any one person.</li>
+	<li>Certain features could have different people in charge of it. Delegating responsibility would spread the work load and let domain specialists focus on their area of expertise without interference. This should be true for the language as well as for the library. Trust people's judgement when you're not sure about it yourself.</li>
+	<li>Overall language direction could be guided in a formal process by all stakeholders, not subject to arbitrary reversion or hold by any one person. All vetoes can be overridden.</li>
 	<li>Language leaders must collaborate with contributors at all steps of the process. Even if an adversarial process is warranted in a particular situation, the requirements must be clearly laid out so a reasonable person can reliably estimate their chances of success before sinking a significant amount of time.</li>
 </ul>
 </main>
