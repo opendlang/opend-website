@@ -1,10 +1,32 @@
 <main>
+	<h1>Changes from the upstream D Language</h1>
+	<p>OpenD forked off upstream D on January 1, 2024. Since then, some things have diverged. This page lists the differences.</p>
+
+	<p>Items are tagged <tt>[parser]</tt> if it had a parser change, <tt>[library]</tt> if a library change, and <tt>[experimental]</tt> if it is still subject to further major change at this time.</p>
+
+	<h2>Additions</h2>
 	<ul>
-		<li>Interpolated expression sequences added</li>
+		<li>[parser] Interpolated expression sequences added</li>
 		<li>0o777 octal literals added</li>
-		<li>Bug fix for extern(C++) multiple inheritance merged (possibly regression causing but passes all tests so far</li>
-		<li>If a module is imported, it <b>must</b> have a module declaration at the top of the file, and it must match the import name.</li>
 		<li>`version(D_OpenD)` is defined to identify the forked compiler</li>
+		<li>`__traits(docComment, symbol)` is added to get the ddoc comment attached to a symbol</li>
 		<li>[experimental] You can name unittests with `unittest "your name" { ... }`</li>
 	</ul>
+
+	<h2>Changes</h2>
+	<ul>
+		<li>If a module is imported, it <b>must</b> have a module declaration at the top of the file, and it must match the import name.</li>
+		<li>Files with invalid identifier chars might be modified to make a working anonymous name if and only if they are a top-level module, not imported by other things</li>
+		<li>Bug fix for extern(C++) multiple inheritance merged (possibly regression causing but passes all tests so far</li>
+		<li>`-preview=bitfields` is not supported. C style bitfields are a mistake to copy into D. You can still use them with C code (including with the importC feature).</li>
+	</ul>
+
+	<h2>Packaging</h2>
+	<ul>
+		<li>The dmd, druntime, phobos, and ldc repos are all merged to reduce duplicated work.</li>
+		<li>dub, reggae, and rdmd are not packaged with OpenD. If you depend on them, the upstream versions should work if you use the `--compiler` option to them.</li>
+	</ul>
+
+	<h1>Things upstream added after OpenD</h1>
+	<p>None yet, but interpolated expression sequences coming soon to them too.</p>
 </main>

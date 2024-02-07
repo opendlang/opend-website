@@ -8,12 +8,8 @@
 <p>These changes are obvious wins, no breakage, easy implementation, just need to make the change.</p>
 
 <ul>
-	<li>Change the automatic module name procedure in dmd to change - to _</li>
-	<li>Remove -preview=bitfields. That is a problematic C feature implemented just for C interop, but we can keep it for importC without cementing the same poor design to D proper.</li>
-	<li>Correct -release so it is no longer considered harmful</li>
-	<li>__traits(docComment)</li>
+	<li>Correct -release so it is no longer considered harmful (must not globally disable vital runtime checks without clear intent)</li>
 	<li>increase the size of the default fiber stack</li>
-	<li>Massively expand the bundled library offerings</li>
 </ul>
 
 <h2>Probably, if easy</h2>
@@ -21,11 +17,15 @@
 <p>These changes would be nice to have. Some specifics might need to be worked out, the implementation might be difficult, it might cause breakage... all those things might remove them from the list. But, they deserve investigation and experimentation. If these items work out with minimal trouble (including managing potential breakage), we'd like to see them. If not, they might be dropped.</p>
 
 <ul>
+	<li>static foreach private vars in a local scope</li>
+	<li>exception.msg</li>
+	<li>extend if(auto x = y)</li>
+	<li>select some default function args but not others</li>
+	<li>Change importC so it doesn't break D code anymore and works better with C code</li>
 	<li>Make druntime easier to port to things like webassembly and niche platforms</li>
 	<li>Anonymous structs in more contexts</li>
 	<li>Fix the closure bug in foreach loops</li>
 	<li>tg's tuple work</li>
-	<li>Class-level private (in addition to the current module-level private)</li>
 	<li>Merge mixinC ref https://github.com/dlang/dmd/pull/14114</li>
 	<li>Bring in some kind of assert(__ctfe) detection ref: https://github.com/dlang/dmd/pull/11007/</li>
 	<li>Allow inferring of other attributes as well as turning them back off, assuming i don't just kill them as useless bloat no-ops. Probably add opposite things (throw, impure, etc) as well as `@!thing` which just removes thing, if present, from the list. Works for compiler attributes as well as user defined attributes (and btw maybe there should be no compiler attributes and they all just recognized UDAs)</li>
@@ -65,11 +65,12 @@
 		</ul>
 	</li>
 	<li>Fix extern(Objective-C) in ldc</li>
-	<li>Change built-in unittest to be a bit better</li>
+	<li>Change built-in unittest to be a bit better - built in named thing, new included runner, maybe make them respect privacy as if they in a different module</li>
 	<li>Kill `version`</li>
 	<li>Fix properties. This has been historically hard to implement though</li>
 	<li>tg's __mutable</li>
 	<li>https://github.com/dlang/phobos/pull/8806 json5 by robert schadek</li>
+	<li>Pipeline operator</li>
 </ul>
 
 <h2>Nope</h2>
@@ -88,23 +89,15 @@
 	<li>Add 0o777 octal literals</li>
 	<li>Merge the repos for a smoother dev experience (potentially makes pulling from upstream harder but makes ongoing work here much easier)</li>
 	<li>[breaking change] Merge Jonathan Marler's wrongfully rejected bug fixes re module system ref: https://github.com/dlang/dmd/pull/7878 and https://github.com/dlang/dmd/pull/7778 - to migrate, always make sure you use the same name for `import` as for `module` statements. The old behavior would lead to potentially loading the wrong library when there were two similar ones in the import path, this removes that ambiguity.</li>
+	<li>Class-level private (in addition to the current module-level private)</li>
+	<li>__traits(docComment)</li>
+	<li>Change the automatic module name procedure in dmd to change - to _</li>
+	<li>Remove -preview=bitfields. That is a problematic C feature implemented just for C interop, but we can keep it for importC without cementing the same poor design to D proper.</li>
+	<li>Massively expand the bundled library offerings</li>
 </ul>
 
-<h1>What could bring me back to upstream?</h1>
+<h2>Can there be a reconciliation with upstream?</h2>
 
-<p>Radical reform of process. There should never again be work left to rot. There has been a very long history of forks and abandoned contributors in D due to slow responses from Walter, going back at least as far as the Ares library that would later become Tango (and later, druntime).</p>
+<p><a href="reconciliation.html">See an answer here</a>.</p>
 
-<p>Walter has taught us that in aviation engineering, yes, you try to have parts that are as reliable as reasonable possible, but you recognize that it is impossible for any one part to be perfect. Instead, the whole design of an airplane is based on the idea of avoid any single point of failure, including avoiding cascading or coincidental failures. You can make a reliable system out of unreliable parts.</p>
-
-<p>For example, a commercial flight will always have two pilots, so if one gets sick or something, the other can still take over. They have separate controls, connected to the machinery by different paths, so if one side breaks, the other will almost certainly be ready to take over without delay. Pilot training has the crew cross-checking each other, so a mistake made by the captain will be caught and corrected by the first officer instead of blindly following orders.</p>
-
-<p>D's current dictatorship model goes contrary to those lessons. Whether benevolent or not, a dictator is still a single point of failure and a bottleneck on the process. We need to correct this to finally allow D to thrive.</p>
-
-<p>A few ideas:</p>
-
-<ul>
-	<li>Certain features could have different people in charge of it. Delegating responsibility would spread the work load and let domain specialists focus on their area of expertise without interference. This should be true for the language as well as for the library. Trust people's judgement when you're not sure about it yourself.</li>
-	<li>Overall language direction could be guided in a formal process by all stakeholders, not subject to arbitrary reversion or hold by any one person. All vetoes can be overridden.</li>
-	<li>Language leaders must collaborate with contributors at all steps of the process. Even if an adversarial process is warranted in a particular situation, the requirements must be clearly laid out so a reasonable person can reliably estimate their chances of success before sinking a significant amount of time.</li>
-</ul>
 </main>

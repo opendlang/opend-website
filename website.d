@@ -10,8 +10,28 @@ shared static this() {
 mixin DispatcherMain!(
 	MyPresenter,
 	"/".serveRedirect("index.html"),
-	"/".serveTemplateDirectory(null, null, "", "html/"),
+	"/".serveTemplateDirectory!wtrFactory(null, null, "", "html/"),
 	"/".serveStaticFileDirectory("assets/"),
 );
 
-class MyPresenter : WebPresenterWithTemplateSupport!MyPresenter {}
+WebTemplateRenderer wtrFactory(TemplateLoader loader) {
+	return new WebTemplateRenderer(loader, [
+		"plaintext": function(string content, string[string] attributes) {
+			import arsd.dom;
+			return WebTemplateRenderer.EmbeddedTagResult(new TextNode(content));
+		},
+		"markdown": function(string content, string[string] attributes) {
+			import arsd.markdown;
+			import arsd.dom;
+			return WebTemplateRenderer.EmbeddedTagResult(
+				new Document("<div>" ~ convertMarkdownToHTML(content) ~ "</div>").root
+			);
+		}
+	]);
+}
+
+class MyPresenter : WebPresenterWithTemplateSupport!MyPresenter {
+	override WebTemplateRenderer webTemplateRenderer() {
+		return wtrFactory(templateLoader());
+	}
+}
