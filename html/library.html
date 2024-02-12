@@ -2,6 +2,88 @@
 
 <h2>OpenD Libraries</h2>
 
+<p>A design goal of OpenD is for things to just work. To help achieve this, it bundles several libraries from various sources in the initial download, meaning you can `import` them and use them without any further effort!</p>
+
+<p>However, since they come from multiple sources, there's some differences between them that might matter to you.</p>
+
+<table>
+	<caption>First-party Supported OpenD Bundled Library Namespaces</caption>
+	<thead>
+	<tr>
+		<th>Package</th>
+		<th>License</th>
+		<th>Status</th>
+		<th>Remarks</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+		<td><tt>d.*</tt></td>
+		<td>MR</td>
+		<td>Experimental</td>
+		<td>Status planned to stabilize with OpenD language</td>
+	</tr>
+	<tr>
+		<td><tt>arsd.*</tt></td>
+		<td>Varied</td>
+		<td>Active</td>
+		<td>Extended stdlib</td>
+	</tr>
+	<tr>
+		<td><tt>core.*</tt></td>
+		<td>MR</td>
+		<td>Active</td>
+		<td>Parts subject to change with language releases</td>
+	</tr>
+
+	<tr>
+		<td><tt>std.*</tt>, <tt>etc.*</tt></td>
+		<td>MR</td>
+		<td>Legacy</td>
+		<td>Provided for compatibility with existing upstream D code</td>
+	</tr>
+	<tr>
+		<td><tt>deimos.*</tt>, <tt>bindbc.*</tt></td>
+		<td>Varied</td>
+		<td>Legacy</td>
+		<td>C library bindings</td>
+	</tr>
+	</tbody>
+</table>
+
 <p>See <a href="/">the dpldocs search engine</a>.</p>
+
+<h2>Glossary</h2>
+
+<h3>Status Terms</h3>
+
+<dl>
+	<dt>Active</dt>
+		<dd>The library is actively maintained and developed. Breakage is possible as part of enhancement efforts, but efforts are made to control it.</dd>
+	<dt>Legacy</dt>
+		<dd>Legacy libraries prioritize compatibility with old code over other concerns. They are less likely to receive new features than actively developed libraries, but also less likely to require your attention to fix breakage on updates.</dd>
+	<dt>Experimental</dt>
+		<dd>The library is new and unfinished. It might have major changes, breakages, or face abandonment in the future.</dd>
+	<dt>Minimal</dt>
+		<dd>The library is minimally maintained and not likely to receive significant fixes or enhancements. Unlike Legacy libraries, it is possible it will break in the future due to neglect.</dd>
+	<dt>Untested</dt>
+		<dd>The library has not been tested and may work beautifully or might not even compile!</dd>
+</dl>
+
+<h3>License Terms</h3>
+
+<dl>
+	<dt>MR (Minimally Restrictive)</dt>
+	<dd>The library is under license terms that put few or no restrictions on your code that uses the library. This means licenses like Boost, public domain, etc.</dd>
+
+	<dt>Varied</dt>
+	<dd>The library is predominantly under minimally restrictions licenses, but has portions under other licenses, so you should check the documentation of the specific parts you use.</dd>
+
+	<dt>Other</dt>
+	<dd>The library uses other license. Might be MIT, BSD, GPL, proprietary, anything that doesn't fit the definition above of "minimally restrictive".</dd>
+</dl>
+
+<p>Remember that compliance with all licenses in your programs is your responsibility.</p>
+
 
 </main>

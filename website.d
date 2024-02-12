@@ -10,6 +10,7 @@ shared static this() {
 mixin DispatcherMain!(
 	MyPresenter,
 	"/".serveRedirect("index.html"),
+	"/library/".serveStaticFileDirectory("../docgen/generated-docs/"),
 	"/".serveTemplateDirectory!wtrFactory(null, null, "", "html/"),
 	"/".serveStaticFileDirectory("assets/"),
 );
@@ -21,7 +22,7 @@ WebTemplateRenderer wtrFactory(TemplateLoader loader) {
 			return WebTemplateRenderer.EmbeddedTagResult(new TextNode(content));
 		},
 		"markdown": function(string content, string[string] attributes) {
-			import arsd.markdown;
+			import commonmarkd;
 			import arsd.dom;
 			return WebTemplateRenderer.EmbeddedTagResult(
 				new Document("<div>" ~ convertMarkdownToHTML(content) ~ "</div>").root

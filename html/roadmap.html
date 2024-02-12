@@ -17,28 +17,31 @@
 <p>These changes would be nice to have. Some specifics might need to be worked out, the implementation might be difficult, it might cause breakage... all those things might remove them from the list. But, they deserve investigation and experimentation. If these items work out with minimal trouble (including managing potential breakage), we'd like to see them. If not, they might be dropped.</p>
 
 <ul>
+	<li>Something like pragma(msg) but automatically deduplicates. e.g. "proprietary license code included"</li>
 	<li>static foreach private vars in a local scope</li>
-	<li>exception.msg</li>
+	<li>Exception.msg. It is currently a plain string, but should be a property, or even just eliminated.</li>
 	<li>extend if(auto x = y)</li>
-	<li>select some default function args but not others</li>
-	<li>Change importC so it doesn't break D code anymore and works better with C code</li>
+	<li>select some default function args but not others, e.g. func("s", default, "y") when you have func(string s, string x = "thing", string y = "other")</li>
+	<li>Change importC so it doesn't break D code anymore and works better with C code. Perhaps remove import and add #import "foo/bar.h". Must namespace things in compatible way for diamond dependencies.</li>
 	<li>Make druntime easier to port to things like webassembly and niche platforms</li>
-	<li>Anonymous structs in more contexts</li>
-	<li>Fix the closure bug in foreach loops</li>
+	<li>Anonymous structs in more contexts. Would be nice to pass to template args.</li>
+	<li>Fix the closure bug in foreach loops: foreach(i; 0..5) dg ~= () { use i; }</li>
 	<li>tg's tuple work</li>
-	<li>Merge mixinC ref https://github.com/dlang/dmd/pull/14114</li>
+	<li>Merge mixinC? ref https://github.com/dlang/dmd/pull/14114</li>
 	<li>Bring in some kind of assert(__ctfe) detection ref: https://github.com/dlang/dmd/pull/11007/</li>
 	<li>Allow inferring of other attributes as well as turning them back off, assuming i don't just kill them as useless bloat no-ops. Probably add opposite things (throw, impure, etc) as well as `@!thing` which just removes thing, if present, from the list. Works for compiler attributes as well as user defined attributes (and btw maybe there should be no compiler attributes and they all just recognized UDAs)</li>
-	<li>Fix phobos?</li>
+	<li>Fix phobos? Remove autodecoding, promote more community libs to std-level of support</li>
 	<li>Fix pragma(linkerDirective) on mac. It should be able to bring in `-framework Cocoa` etc.</li>
 	<li>Fix error messages gagging things and just giving void as the type in delegates and such</li>
 
-	<li>const(Object) o ref for rebindable const object https://github.com/dlang/dmd/pull/3</li>
+	<li>opPass, see: https://forum.dlang.org/post/lddjmh$8rn$1@digitalmars.com</li>
+
+	<li>const(Object) o ref for rebindable const object https://github.com/dlang/dmd/pull/ or better yet const(Object)~ o where the ~ represents the tailing ref.</li>
 	<li>Fix package.d, removing the special cases based on filenames and maybe revisiting reflection over it.</li>
 	<li>Ban user-redefined init</li>
-	<li>Implicit construction (at least on return values)</li>
-	<li>Eliminate Object.factory</li>
-	<li>Forward attributes from delegates to outside of function for callbacks</li>
+	<li>Implicit construction (at least on return values, prolly function params too)</li>
+	<li>Eliminate Object.factory. Might consider auto-mixin things on interfaces to register deserializeable objects.</li>
+	<li>Forward attributes from delegates to outside of function for callbacks ("inout for attributes"; a kind of type erasure)</li>
 	<li>Fix class dtor impl to be actually virtual <a href="https://github.com/orgs/opendlang/discussions/25">github discussion</a></li>
 	<li>Define reflection access to constructors (prolly just officially say "use __ctor")</li>
 </ul>
@@ -49,7 +52,9 @@
 
 <ul>
 	<li>Return the thing if it is not a certain type or use it if it is, like rust error handling</li>
-	<li>Implicit cast</li>
+	<li>opImplicitCast</li>
+	<li>Type erasure on template args - you pass it as one thing, it collapses to single instance, but remembers the original use on the return of the expression.</li>
+	<li>Type erased OOP generics</li>
 	<li>Switch to safe by default</li>
 	<li>Template reflection</li>
 	<li>Make Error call stack unwinders again</li>
@@ -66,7 +71,7 @@
 	</li>
 	<li>Fix extern(Objective-C) in ldc</li>
 	<li>Change built-in unittest to be a bit better - built in named thing, new included runner, maybe make them respect privacy as if they in a different module</li>
-	<li>Kill `version`</li>
+	<li>Kill `version`, replace with static if</li>
 	<li>Fix properties. This has been historically hard to implement though</li>
 	<li>tg's __mutable</li>
 	<li>https://github.com/dlang/phobos/pull/8806 json5 by robert schadek</li>

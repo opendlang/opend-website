@@ -12,6 +12,10 @@ body {
 	text-decoration: inherit;
 }
 
+.current-link {
+	font-weight: bold;
+}
+
 .link-list a:first-child {
 	margin-left: 0px;
 }
