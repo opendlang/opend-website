@@ -3,6 +3,25 @@
 
 <p>This is a rough list of things we'd like to look at. Anybody can add an idea to the list (PR the website!) and each one might be reviewed and rejected by the community, but these are the specific items of consideration.</p>
 
+<h2>Meta</h2>
+
+<p>These are things not in the language, but around it.</p>
+
+<ul>
+	<li>Get language docs on the website</li>
+	<li>Get library docs on the website</li>
+	<li>Get the opend app working easier</li>
+	<li>Try to run unittests fast with the ctfe engine</li>
+</ul>
+
+<h2>In Active Investigation</h2>
+
+<ul>
+	<li>Safer by default - mostly finished</li>
+	<li>Event loop</li>
+	<li>Change anonymous class scope lookup so you can get to local vars</li>
+</ul>
+
 <h2>Guaranteed</h2>
 
 <p>These changes are obvious wins, no breakage, easy implementation, just need to make the change.</p>
@@ -10,6 +29,7 @@
 <ul>
 	<li>Correct -release so it is no longer considered harmful (must not globally disable vital runtime checks without clear intent)</li>
 	<li>increase the size of the default fiber stack</li>
+	<li>Make `real` an alias of `double` on x86 so it isn't godawful slow ruining std.math</li>
 </ul>
 
 <h2>Probably, if easy</h2>
@@ -17,6 +37,12 @@
 <p>These changes would be nice to have. Some specifics might need to be worked out, the implementation might be difficult, it might cause breakage... all those things might remove them from the list. But, they deserve investigation and experimentation. If these items work out with minimal trouble (including managing potential breakage), we'd like to see them. If not, they might be dropped.</p>
 
 <ul>
+	<li>`@notls`</li>
+	<li>End explicit slice of static arrays</li>
+	<li>Inheritance of class constructors</li>
+	<li>Make `in` `const scope` again</li>
+	<li>A special bitmask enum that automatically does a thing</li>
+	<li>Make sure deprecations don't affect reflection</li>
 	<li>Something like pragma(msg) but automatically deduplicates. e.g. "proprietary license code included"</li>
 	<li>static foreach private vars in a local scope</li>
 	<li>Exception.msg. It is currently a plain string, but should be a property, or even just eliminated.</li>
@@ -26,7 +52,7 @@
 	<li>Make druntime easier to port to things like webassembly and niche platforms</li>
 	<li>Anonymous structs in more contexts. Would be nice to pass to template args.</li>
 	<li>Fix the closure bug in foreach loops: foreach(i; 0..5) dg ~= () { use i; }</li>
-	<li>tg's tuple work</li>
+	<li>forward named args</li>
 	<li>Merge mixinC? ref https://github.com/dlang/dmd/pull/14114</li>
 	<li>Bring in some kind of assert(__ctfe) detection ref: https://github.com/dlang/dmd/pull/11007/</li>
 	<li>Allow inferring of other attributes as well as turning them back off, assuming i don't just kill them as useless bloat no-ops. Probably add opposite things (throw, impure, etc) as well as `@!thing` which just removes thing, if present, from the list. Works for compiler attributes as well as user defined attributes (and btw maybe there should be no compiler attributes and they all just recognized UDAs)</li>
@@ -39,13 +65,13 @@
 	<li>const(Object) o ref for rebindable const object https://github.com/dlang/dmd/pull/ or better yet const(Object)~ o where the ~ represents the tailing ref.</li>
 	<li>Fix package.d, removing the special cases based on filenames and maybe revisiting reflection over it.</li>
 	<li>Ban user-redefined init</li>
-	<li>Implicit construction (at least on return values, prolly function params too)</li>
 	<li>Eliminate Object.factory. Might consider auto-mixin things on interfaces to register deserializeable objects.</li>
 	<li>Forward attributes from delegates to outside of function for callbacks ("inout for attributes"; a kind of type erasure)</li>
 	<li>Fix class dtor impl to be actually virtual <a href="https://github.com/orgs/opendlang/discussions/25">github discussion</a></li>
 	<li>Define reflection access to constructors (prolly just officially say "use __ctor")</li>
 	<li>Ban capture of variable with scoped destruction by delegate in all cases</li>
 	<li>Improve error messages for wrong {} by guessing intent based on indentation</li>
+	<li>Fix class destructors to actually be virtual so they work as specified</li>
 </ul>
 
 <h2>Undecided, but maybe</h2>
@@ -53,8 +79,7 @@
 <p>These items would also be nice to look into, but the cost/benefit ratio looks lower at first look.</p>
 
 <ul>
-	<li>Return the thing if it is not a certain type or use it if it is, like rust error handling</li>
-	<li>opImplicitCast</li>
+	<li>Return the thing if it is not a certain type or use it if it is, like rust error handling ? thing</li>
 	<li>Type erasure on template args - you pass it as one thing, it collapses to single instance, but remembers the original use on the return of the expression.</li>
 	<li>Type erased OOP generics</li>
 	<li>Switch to safe by default</li>
@@ -100,7 +125,14 @@
 	<li>__traits(docComment)</li>
 	<li>Change the automatic module name procedure in dmd to change - to _</li>
 	<li>Remove -preview=bitfields. That is a problematic C feature implemented just for C interop, but we can keep it for importC without cementing the same poor design to D proper.</li>
+	<li>Make == work on classes with null</li>
 	<li>Massively expand the bundled library offerings</li>
+	<li>Allow $name in interpolation</li>
+	<li>Get dmd build in the download</li>
+	<li>Get my new lld-link into the distribution</li>
+	<li>tg's tuple work</li>
+	<li>Implicit construction (at least on return values, prolly function params too)</li>
+	<li>opImplicitCast</li>
 </ul>
 
 <h2>Can there be a reconciliation with upstream?</h2>

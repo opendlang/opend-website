@@ -18,6 +18,11 @@
 		<li>`@implicit this()` constructors added, which allows implicit construction when passing arguments to functions.</li>
 		<li>[parser] `private(this)` added for class-level private</li>
 		<li>`-unittest=x` can take module patterns</li>
+		<li>`pragma(explicit_gc)` implemented</li>
+
+		<li>`ref` on locals implemented</li>
+		<li>string file imports now implicitly cast to byte arrays</li>
+		<li>`import()` expressions can now, by default, load files from the defining module's source directory</li>
 	</ul>
 
 	<h2>Changes</h2>
@@ -26,14 +31,22 @@
 		<li>Files with invalid identifier chars might be modified to make a working anonymous name if and only if they are a top-level module, not imported by other things</li>
 		<li>Bug fix for extern(C++) multiple inheritance merged (possibly regression causing but passes all tests so far</li>
 		<li>`-preview=bitfields` is not supported. C style bitfields are a mistake to copy into D. You can still use them with C code (including with the importC feature).</li>
+		<li>`==` is supported with `null` and classes</li>
+		<li>Interpolated expression sequences allow `$ident` in addition to `$(expr)`. Some code that uses `$thing` in one of these may now have to escape the `$`.</li>
+		<li>`-preview=systemVariables` is enabled by default.</li>
 	</ul>
 
 	<h2>Packaging</h2>
 	<ul>
-		<li>The dmd, druntime, phobos, and ldc repos are all merged to reduce duplicated work.</li>
+		<li>The dmd, druntime, phobos, and ldc repos are all merged to reduce duplicated work. The opend releases include both dmd and ldc, where dmd is supported.</li>
 		<li>dub, reggae, and rdmd are not packaged with OpenD. If you depend on them, the upstream versions should work if you use the `--compiler` option to them.</li>
 	</ul>
 
 	<h1>Things upstream added after OpenD</h1>
-	<p>None yet, but interpolated expression sequences coming soon to them too.</p>
+	<p>Interpolated expression sequences are now upstream.</p>
+	<p>Upstream is looking at our safer by default changes too.</p>
+
+	<h1>Notes about OpenD docs that need writing</h1>
+
+	<p>The implicit casts should generally only be used if they are always correct. So implicit convert only if the type being converted is ALWAYS valid as the one converting to; it must be a superset when considering storage and invariants. Same on the implicit construct, just the other way.</p>
 </main>
