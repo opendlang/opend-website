@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright © 2026 Mindy Batek (0xEAB) — License:  CC-BY-4.0 -->
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" version="1.1" viewBox="0 0 256 256">
+ <g fill="transparent" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="8">
+  <path d="M 124,196 H 4 V 4 h 248 v 192 l -107,0"/>
+  <g>
+   <path d="m 114,160 72,88 -12,8 -72,-88"/>
+   <circle cx="80" cy="120" r="48"/>
+  </g>
+  <path d="m 128,80 h 24 l 12,-48 12,48 12,48 12,-48 h 24" fill="none"/>
+ </g>
+</svg>
