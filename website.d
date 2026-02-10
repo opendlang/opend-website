@@ -25,9 +25,12 @@ bool libraryHandler(DD)(DD dd) {
 	try {
 		auto arcz = new ArzArchive();
 		arcz.openArchive("generated.arcz");
+		scope(exit) arcz.close();
 		auto fl = arcz.open(path);
+		scope(exit) fl.close();
 		auto buf = new char[](fl.size);
 		fl.rawRead(buf[]);
+
 		dd.cgi.setResponseExpiresRelative(60 * 5, true);
 		dd.cgi.gzipResponse = true;
 		dd.cgi.write(buf[], true);
@@ -54,9 +57,12 @@ bool languageHandler(DD)(DD dd) {
 	try {
 		auto arcz = new ArzArchive();
 		arcz.openArchive("generated-language.arcz");
+		scope(exit) arcz.close();
 		auto fl = arcz.open(path);
+		scope(exit) fl.close();
 		auto buf = new char[](fl.size);
 		fl.rawRead(buf[]);
+
 		dd.cgi.setResponseExpiresRelative(60 * 5, true);
 		dd.cgi.gzipResponse = true;
 		dd.cgi.write(buf[], true);

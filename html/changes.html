@@ -22,6 +22,19 @@
 		<li>`ref` on locals implemented</li>
 		<li>string file imports now implicitly cast to byte arrays</li>
 		<li>`import()` expressions can now, by default, load files from the defining module's source directory</li>
+		<li>pragma(linkerDirective) and @section now work on dmd similarly to ldc</li>
+		<li>extern(Objective-C) works on ldc similarly to dmd</li>
+		<li>`__traits(resolveFunctionCall, overloadSet, args...)` returns an alias to the matched overload</li>
+		<li>OpenD's importC allows `__module` declarations in C files to give them a full import name. I recommend you use this.</li>
+		<li>Tuple unpacking shipped</li>
+		<li>[parser] `with(auto x = expr) { ... }` added</li>
+		<li>`@ctfeOnly` but it is buggy...</li>
+	</ul>
+
+	<h2>Bug fixes</h2>
+	<ul>
+		<li>nogc default args work better</li>
+		<li>`if(__ctfe)` disables checks for `nogc` inside that block, similarly to how `debug` blocks work</li>
 	</ul>
 
 	<h2>Changes</h2>
@@ -33,6 +46,22 @@
 		<li>`==` is supported with `null` and classes</li>
 		<li>Interpolated expression sequences allow `$ident` in addition to `$(expr)`. Some code that uses `$thing` in one of these may now have to escape the `$`.</li>
 		<li>`-preview=systemVariables` is enabled by default.</li>
+		<li>Several safe warnings are enabled by default</li>
+		<li>`inout` in previously illegal contexts is treated as `const` instead of erroring</li>
+		<li>`foreach(int idx, item; array)` instead of issuing deprecation warning, asserts at runtime the length fits in an int (or whatever type you specified there) and proceeds</li>
+		<li>ImportC can set attributes with `#pragma attribute(push, nogc, nothrow)` and then asm blocks inherit these blocks too instead of erroring out</li>
+		<li>Identifiers created by `is` expressions inside `static foreach` blocks are assumed local to the block instead of issuing redefinition errors on next loop iteration</li>
+
+		<li>`-preview=fixAliasThis -preview=rvalueRefParam -preview=fixImmutableConv -preview=systemVariables` all enabled by default. All other previews are considered unsupported and not on the roadmap, use at your own risk.</li>
+
+		<li>Heredoc strings can now terminate off the beginning of the line. If so, it outdents the line similar to C#'s triple quoted string https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/tokens/raw-string . You can fix vim syntax by deleting the ^ character from this line in d.vim: `syn region dHereString  start=+q"\z(\I\i*\)\n+ end=+^\z1"+ contains=@Spell`.</li>
+
+		<!-- shipped Sept 2025 -->
+		<li>char, wchar, dchar, float, double, and real now initialize to 0 by default. This has the potential for silent runtime behavior changes, you should check for this in your code (grep char.init and float.init and double.init and see where you might depend on it)</li>
+		<li>Object no longer includes a slot for a monitor. If you want to use `synchronized` on a class object, you must opt into it using a parent of `SynchronizableObject` or `mixin EnableSynchronization;` in the class definition. It will detect this at compile time in most cases, but in some it will be a runtime assert error from inside druntime.</li>
+		<li>std.signals' slots only work on synchronizable objects. This is only detected at runtime.</li>
+		<!-- shipped 15 nov 2025 -->
+		<li>`char[] a; string s = a ~ "foo";` now compiles</li>
 	</ul>
 
 	<h2>Packaging</h2>

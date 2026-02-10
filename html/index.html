@@ -5,7 +5,7 @@
 
 <h3>Boosts your productivity out-of-the-box.</h3>
 
-<p>With hundreds of library modules included, opening a window and starting a web server are just as easy as printing hello to the console.</p>
+<p>With OpenD's fast compilers, you get quick feedback as you work. With a garbage collector and hundreds of library modules included, opening a window and starting a web server are just as easy as printing hello to the console.</p>
 
 <details>
 	<summary>Graphics window</summary>
@@ -14,7 +14,7 @@
 	import arsd.simpledisplay;
 
 	void main() {
-		auto window = new SimpleWindow("Hello!");
+		auto window = new SimpleWindow();
 
 		window.eventLoop(0);
 	}
@@ -28,7 +28,12 @@
 	import arsd.cgi;
 
 	void handler(Cgi cgi) {
+		cgi.setResponseContentType("text/plain");
 
+		if("name" in cgi.get)
+			cgi.write("Hello, " ~ cgi.get["name"]);
+		else
+			cgi.write("Hello, world!");
 	}
 
 	mixin GenericMain!handler;
@@ -92,7 +97,7 @@ class Commands {
 }
 void main() {
 	auto window = new MainWindow();
-	window.addMenuAndToolbarFromAnnotatedCode(new Commands());
+	window.setMenuAndToolbarFromAnnotatedCode(new Commands());
 	window.loop();
 }
 </code></pre>

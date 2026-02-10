@@ -3,13 +3,14 @@
 
 <p>This is a rough list of things we'd like to look at. Anybody can add an idea to the list (PR the website!) and each one might be reviewed and rejected by the community, but these are the specific items of consideration.</p>
 
+<p>Want to help? Look down this list, or for something more concrete, check out the <a href="project-list.html">project list</a>.</p>
+
 <h2>Meta</h2>
 
 <p>These are things not in the language, but around it.</p>
 
 <ul>
-	<li>Get language docs on the website</li>
-	<li>Get library docs on the website</li>
+	<li>Fix library/source views on the website</li>
 	<li>Get the opend app working easier</li>
 	<li>Try to run unittests fast with the ctfe engine</li>
 </ul>
@@ -18,8 +19,10 @@
 
 <ul>
 	<li>Safer by default - mostly finished</li>
+	<li>Make druntime easier to port to things like webassembly and niche platforms - significant progress</li>
 	<li>Event loop</li>
 	<li>Change anonymous class scope lookup so you can get to local vars</li>
+	<li>https://github.com/dlang/dmd/pull/16910</li>
 </ul>
 
 <h2>Guaranteed</h2>
@@ -30,6 +33,7 @@
 	<li>Correct -release so it is no longer considered harmful (must not globally disable vital runtime checks without clear intent)</li>
 	<li>increase the size of the default fiber stack</li>
 	<li>Make `real` an alias of `double` on x86 so it isn't godawful slow ruining std.math</li>
+	<li>Try to replace __traits(compiles) with more specific reflection items</li>
 </ul>
 
 <h2>Probably, if easy</h2>
@@ -37,6 +41,11 @@
 <p>These changes would be nice to have. Some specifics might need to be worked out, the implementation might be difficult, it might cause breakage... all those things might remove them from the list. But, they deserve investigation and experimentation. If these items work out with minimal trouble (including managing potential breakage), we'd like to see them. If not, they might be dropped.</p>
 
 <ul>
+	<li>Nested classes and local variables name lookup ambiguity</li>
+	<li>Make export a uda instead of visibility (or in addition to), correspond with `@hidden`</li>
+	<li>Get ndslice stabilized and documented</li>
+	<li>Implicit cast of function pointer to delegate</li>
+	<li>`@disable("message to user")`</li>
 	<li>`@notls`</li>
 	<li>End explicit slice of static arrays</li>
 	<li>Inheritance of class constructors</li>
@@ -49,15 +58,12 @@
 	<li>extend if(auto x = y)</li>
 	<li>select some default function args but not others, e.g. func("s", default, "y") when you have func(string s, string x = "thing", string y = "other")</li>
 	<li>Change importC so it doesn't break D code anymore and works better with C code. Perhaps remove import and add #import "foo/bar.h". Must namespace things in compatible way for diamond dependencies.</li>
-	<li>Make druntime easier to port to things like webassembly and niche platforms</li>
 	<li>Anonymous structs in more contexts. Would be nice to pass to template args.</li>
 	<li>Fix the closure bug in foreach loops: foreach(i; 0..5) dg ~= () { use i; }</li>
 	<li>forward named args</li>
 	<li>Merge mixinC? ref https://github.com/dlang/dmd/pull/14114</li>
-	<li>Bring in some kind of assert(__ctfe) detection ref: https://github.com/dlang/dmd/pull/11007/</li>
 	<li>Allow inferring of other attributes as well as turning them back off, assuming i don't just kill them as useless bloat no-ops. Probably add opposite things (throw, impure, etc) as well as `@!thing` which just removes thing, if present, from the list. Works for compiler attributes as well as user defined attributes (and btw maybe there should be no compiler attributes and they all just recognized UDAs)</li>
 	<li>Fix phobos? Remove autodecoding, promote more community libs to std-level of support</li>
-	<li>Fix pragma(linkerDirective) on mac. It should be able to bring in `-framework Cocoa` etc.</li>
 	<li>Fix error messages gagging things and just giving void as the type in delegates and such</li>
 
 	<li>opPass, see: https://forum.dlang.org/post/lddjmh$8rn$1@digitalmars.com</li>
@@ -65,13 +71,13 @@
 	<li>const(Object) o ref for rebindable const object https://github.com/dlang/dmd/pull/ or better yet const(Object)~ o where the ~ represents the tailing ref.</li>
 	<li>Fix package.d, removing the special cases based on filenames and maybe revisiting reflection over it.</li>
 	<li>Ban user-redefined init</li>
-	<li>Eliminate Object.factory. Might consider auto-mixin things on interfaces to register deserializeable objects.</li>
 	<li>Forward attributes from delegates to outside of function for callbacks ("inout for attributes"; a kind of type erasure)</li>
 	<li>Fix class dtor impl to be actually virtual <a href="https://github.com/orgs/opendlang/discussions/25">github discussion</a></li>
 	<li>Define reflection access to constructors (prolly just officially say "use __ctor")</li>
 	<li>Ban capture of variable with scoped destruction by delegate in all cases</li>
 	<li>Improve error messages for wrong {} by guessing intent based on indentation</li>
-	<li>Fix class destructors to actually be virtual so they work as specified</li>
+	<li>Add `@pure` and `@nothrow` as aliases to `pure` and `nothrow` so people can choose to be more consistent.</li>
+	<li>Only allow one specific IUnknown to trigger special behavior</li>
 </ul>
 
 <h2>Undecided, but maybe</h2>
@@ -79,10 +85,13 @@
 <p>These items would also be nice to look into, but the cost/benefit ratio looks lower at first look.</p>
 
 <ul>
+	<li>Lambda with implicit `this` based on receiving type</li>
+	<li>`thisref` as a storage class - if attached to class/interface, no ref, if struct/union, yes ref</li>
 	<li>Return the thing if it is not a certain type or use it if it is, like rust error handling ? thing</li>
 	<li>Type erasure on template args - you pass it as one thing, it collapses to single instance, but remembers the original use on the return of the expression.</li>
 	<li>Type erased OOP generics</li>
 	<li>Switch to safe by default</li>
+	<li>Eliminate Object.factory. Maybe. Might be worth keeping anyway. Might consider auto-mixin things on interfaces to register deserializeable objects.</li>
 	<li>Template reflection</li>
 	<li>Make Error call stack unwinders again</li>
 	<li>Revisit bool/int and char/int conversions</li>
@@ -96,13 +105,24 @@
 			<li>Etc.</li>
 		</ul>
 	</li>
-	<li>Fix extern(Objective-C) in ldc</li>
 	<li>Change built-in unittest to be a bit better - built in named thing, new included runner, maybe make them respect privacy as if they in a different module</li>
 	<li>Kill `version`, replace with static if</li>
 	<li>Fix properties. This has been historically hard to implement though</li>
 	<li>tg's __mutable</li>
 	<li>https://github.com/dlang/phobos/pull/8806 json5 by robert schadek</li>
 	<li>Pipeline operator</li>
+	<li>Undeprecate `delete` and allow `new` to be redirected to a pool allocator w/ escape hatch for long lived things</li>
+	<li>C++ style value lambdas</li>
+	<li>some kind of `super abstract`; must be implemented in all descendants, not just one level of child. could be coupled with auto template mixins
+		<ul>
+			<li>any override in a non-final class must also be required_in_descendants</li>
+			<li>cannot be final, unless in a final class</li>
+			<li>any parent me thod required in descendants that is not in the child causes an error</li>
+		</ul>
+	</li>
+	<li>druntime on bare metal</li>
+	<li>overloads based on named params in some cases</li>
+	<li>Use indentation to improve some errors: unreachable code that has an indent mismatch might be enough to flag warning where either on their own would not be an error, and a missing {} parse error can use indentation to point back to the right place</li>
 </ul>
 
 <h2>Nope</h2>
@@ -133,6 +153,15 @@
 	<li>tg's tuple work</li>
 	<li>Implicit construction (at least on return values, prolly function params too)</li>
 	<li>opImplicitCast</li>
+	<li>Fix pragma(linkerDirective) on mac. It should be able to bring in `-framework Cocoa` etc.</li>
+	<li>@section(".linkersec") or something on dmd to match ldc's capability (though maybe it belongs in tocsym.d instead of toobj.d. look for userDefinedSection)</li>
+	<li>Fix extern(Objective-C) in ldc</li>
+	<li>Error on self-assignments `a = a`</li>
+	<li>`with(auto x = expr)`</li>
+	<li>Bring in some kind of assert(__ctfe) detection ref: https://github.com/dlang/dmd/pull/11007/ (went with @ctfeOnly but it is buggy...)</li>
+	<li>`-checkaction=context` is now default</li>
+	<li>improve exception backtrace printing (on linux at least)</li>
+	<li>fix the abstract class interface runtime crash bug</li>
 </ul>
 
 <h2>Can there be a reconciliation with upstream?</h2>
